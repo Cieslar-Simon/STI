@@ -107,7 +107,7 @@ At each position, the following data were collected:
 
 All measurement data are organized in the repository under <code>control_measurements/Position 1/</code> and <code>Position 2/</code>. Within each, you will find the recorded STIPA signal, the IR measurement files (both the raw sweep response and the processed IR, possibly), and the REW-derived IR. By using these files with the provided MATLAB functions, you can replicate the thesis analysis - for example, compute STI for Position 1 via the STIPA method and via the IR method, and observe how they compare.
 
-This measurement campaign demonstrates the practical application of the code in real-world scenarios. It provides example cases for users to experiment with, and it illustrates the typical use of STI in evaluating how intelligible a public address or sound system will be at different listener locations. For detailed discussions of the measurement setup and results, please refer to the thesis document and Reference [1] which inspired parts of this work [mathworks.com](https://www.mathworks.com/matlabcentral/discussions/general/842491-speech-transmission-index-for-public-address-stipa-on-github#:~:text=Control%20Measurements%3A).
+This measurement campaign demonstrates the practical application of the code in real-world scenarios. It provides example cases for users to experiment with, and it illustrates the typical use of STI in evaluating how intelligible a public address or sound system will be at different listener locations. For detailed discussions of the measurement setup and results, please refer to the thesis document and Reference [[1]](#1) which inspired parts of this work [mathworks.com](https://www.mathworks.com/matlabcentral/discussions/general/842491-speech-transmission-index-for-public-address-stipa-on-github#:~:text=Control%20Measurements%3A).
 
 ## Limitations
 + **Full STI Recording Omission**: The raw recorded audio for the full 15-minute STI test at both Position 1 and Position 2 is not included in this GitHub repository. Each such file is very large (exceeding GitHub’s single-file upload limit of 25 MB)
@@ -125,7 +125,12 @@ This measurement campaign demonstrates the practical application of the code in 
 Despite these limitations, the repository should serve as a comprehensive starting point for STI computation. Users can extend the code or incorporate their own data. For example, you could integrate this MATLAB code into a larger measurement framework, or adapt the signal generation for custom intelligibility tests. Always be mindful of the conditions (noise, non-linear processing, etc.) where each method is applicable [github.com](https://github.com/zawi01/stipa#:~:text=the%20direct%20STIPA%20method), and use the appropriate method accordingly (direct STIPA for quick on-site checks, full STI for detailed analysis when time permits, or IR method for theoretical studies and cases where an IR is known).
 
 ## References
-1. Záviška, P., Rajmic, P., Schimmel, J. _MATLAB Implementation of STIPA_. AES Europe Conference, 2024 – An open-source project implementing the STIPA method for speech intelligibility testing.
-2. **ČSN EN IEC 60268-16 ed. 3** – _Sound system equipment – Part 16: Objective rating of speech intelligibility by the STI_. International Electrotechnical Commission standard defining the STI calculation and qualification criteria.
-3. Cieslar, Šimon. _Computing Speech Transmission Index in Matlab_. Master’s Thesis, Brno University of Technology, 2025. (Detailing the development of this MATLAB implementation and measurement campaign.)
+<a id="1">[1]</a> 
+Záviška, P., Rajmic, P., Schimmel, J. _MATLAB Implementation of STIPA_. AES Europe Conference, 2024 – An open-source project implementing the STIPA method for speech intelligibility testing.
+
+<a id="2">[2]</a> 
+**ČSN EN IEC 60268-16 ed. 3** – _Sound system equipment – Part 16: Objective rating of speech intelligibility by the STI_. International Electrotechnical Commission standard defining the STI calculation and qualification criteria.
+
+<a id="3">[3]</a> 
+Cieslar, Šimon. _Computing Speech Transmission Index in Matlab_. Master’s Thesis, Brno University of Technology, 2025. (Detailing the development of this MATLAB implementation and measurement campaign.)
 
