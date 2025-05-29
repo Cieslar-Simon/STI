@@ -5,7 +5,7 @@
 
 **Full STI vs. STIPA**: The full STI procedure uses 98 separate test signals covering 7 octave frequency bands and 14 modulation frequencies, requiring roughly a 15-minute measurement [github.com](https://github.com/zawi01/stipa#:~:text=The%20full%20STI%20model%20consists,15%20s%20to%2025%20s). **STIPA** (Speech Transmission Index for Public Address systems) is a simplified, standardized variant of STI that uses a single composite test signal with only two modulation frequencies per band, reducing measurement time to about 15–20 seconds [github.com](https://github.com/zawi01/stipa#:~:text=The%20full%20STI%20model%20consists,15%20s%20to%2025%20s). STIPA provides a quicker estimation of STI with minimal accuracy loss, making it practical for field measurements. This repository implements both the **direct STI methods** – including the exhaustive Full STI and the faster STIPA – and the **indirect method** based on impulse responses. The direct method involves playing a known modulated noise signal through the system and analyzing the recorded output, while the _indirect_ method computes STI by analyzing the system’s measured impulse response (IR). (The indirect IR-based method assumes a linear time-invariant system; it may be less accurate if the audio path includes non-linear elements like companders or limiters [github.com](https://github.com/zawi01/stipa#:~:text=the%20direct%20STIPA%20method).) By providing implementations of all these approaches, the project allows users to compare results and understand how different measurement techniques can be used to assess speech intelligibility.
 
-#### Features
+## Features
 + **Full Direct STI Calculation**: Generation of the full STI test signal (7 octave bands × 14 modulations) and analysis of recorded signals to compute the STI. This includes calculating the Modulation Transfer Function (MTF) for each band/modulation frequency and applying standard STI weighting and redundancy corrections [github.com](https://github.com/zawi01/stipa#:~:text=The%20full%20STI%20model%20consists,15%20s%20to%2025%20s). The code can produce the long-format test signal and analyze its playback recording to yield an STI score along with intermediate metrics (modulation indices, per-band intelligibility scores, etc.).
 + **STIPA Method**: Implementation of the **STIPA** simplified test. The repository can generate the standard STIPA test signal (modulated noise with two modulation frequencies per band) and compute STI from a recorded STIPA test playback [github.com](https://github.com/zawi01/stipa#:~:text=The%20full%20STI%20model%20consists,15%20s%20to%2025%20s). This provides a fast estimate of intelligibility using the widely adopted STIPA procedure (per IEC 60268-16). It includes functions for creating the STIPA signal of a desired length and sampling rate, as well as analyzing the recorded response to output the STI value and modulation reduction per octave band.
 + **Indirect STI from Impulse Response**: Tools to calculate STI based on an acoustic **impulse response**. Given a measured IR of the environment or audio chain, the code computes the modulation transfer function by processing the IR (for example, by deriving the frequency response and applying octave-band modulation analysis) [mathworks.com](https://www.mathworks.com/matlabcentral/discussions/general/842491-speech-transmission-index-for-public-address-stipa-on-github#:~:text=Verification%20Tests%3A). This yields an STI prediction without needing the direct playback of modulated noise. An exponential sine sweep signal generation (<code>IR_signal_exp_sweep.m</code>) is provided to facilitate IR measurements, and the measured IR can be fed into the <code>STI_IR.m</code> function to compute STI. This method is useful for cases where an impulse response is known or easier to obtain.
@@ -27,7 +27,7 @@
 
 Together, these features make the repository a full toolset for STI evaluation: from generating test stimuli, through performing measurements or simulations, to computing the intelligibility index and visualizing the results.
 
-#### Structure of the Repository
+## Structure of the Repository
 The repository is organized into MATLAB scripts, functions, and data files, with a dedicated folder for measurement data:
 + **Root Directory**: Contains the main analysis functions, scripts, and supporting utilities:
   + **STI computation functions**: <code>fullsti.m</code> (computes Full STI from a recorded signal), <code>stipa.m</code> (computes STI from a STIPA test signal recording), and <code>STI_IR.m</code> (computes STI from an impulse response). These are the core algorithms implementing the STI calculations for each method.
@@ -52,7 +52,7 @@ The repository is organized into MATLAB scripts, functions, and data files, with
 
 This structure separates the code logic from experimental data. Users interested in the algorithms can focus on the MATLAB <code>.m</code> files in the root, while those interested in replicating or examining the measurement results can explore the <code>control_measurements</code> subfolders for real-world example data.
 
-### Usage Instructions
+## Usage Instructions
 
 **Prerequisites**: To use this repository, you need MATLAB (the code was developed and tested in MATLAB R2024b). No specialized toolboxes are strictly required for basic functionality – the code uses standard MATLAB functions for signal processing (octave-band filtering is implemented manually in <code>ctave_band_analysis.m</code>). However, having the Signal Processing Toolbox or Audio Toolbox may be beneficial for audio I/O and visualization but is not mandatory. Ensure your MATLAB path includes the repository files (you can achieve this by running <code>addpath(genpath('<path-to-repo>'))</code> or by opening MATLAB in the repository folder).
 
@@ -93,7 +93,7 @@ This structure separates the code logic from experimental data. Users interested
 
 For any issues or to extend the functionality, refer to the original thesis documentation [mathworks.com](https://www.mathworks.com/matlabcentral/discussions/general/842491-speech-transmission-index-for-public-address-stipa-on-github#:~:text=Verification%20Tests%3A) and the references below, which provide the theoretical background. The repository code is meant to be educational and a starting point for further research or customization in the field of speech intelligibility measurement.
 
-#### Measurement Campaign
+## Measurement Campaign
 
 To validate and demonstrate the implemented STI methods, a measurement campaign was conducted at **two different positions** in a real environment. These positions (labeled “Position 1” and “Position 2”) correspond to two distinct listener locations in the test space (for example, two points in a room or auditorium) used to gather comparative intelligibility data. The goal was to see how STI values differ with spatial location or acoustic conditions, and to exercise all three methods (Full STI, STIPA, and IR-based) in parallel.
 
@@ -109,7 +109,7 @@ All measurement data are organized in the repository under <code>control_measure
 
 This measurement campaign demonstrates the practical application of the code in real-world scenarios. It provides example cases for users to experiment with, and it illustrates the typical use of STI in evaluating how intelligible a public address or sound system will be at different listener locations. For detailed discussions of the measurement setup and results, please refer to the thesis document and Reference [1] which inspired parts of this work [mathworks.com](https://www.mathworks.com/matlabcentral/discussions/general/842491-speech-transmission-index-for-public-address-stipa-on-github#:~:text=Control%20Measurements%3A).
 
-#### Limitations
+## Limitations
 + **Full STI Recording Omission**: The raw recorded audio for the full 15-minute STI test at both Position 1 and Position 2 is not included in this GitHub repository. Each such file is very large (exceeding GitHub’s single-file upload limit of 25 MB)
 [github.com](https://github.com/Cieslar-Simon/STI/commit/6ffe7222131307bd144170221d8ee621fdb9f3be#:~:text=The%20%E2%80%9CPosition%201%E2%80%9D%20and%20%E2%80%9CPosition,25%20MB%20GitHub%20size%20limit). Consequently, while the code includes the capability to analyze full STI recordings, users who wish to try this will need to generate and record the full STI signal themselves. (Alternatively, one could split the full signal into smaller files, but that was beyond the scope of this project distribution.)
 + **Included Measurement Data**: In place of the full recordings, the repository provides smaller, representative files for each position:
@@ -124,7 +124,7 @@ This measurement campaign demonstrates the practical application of the code in 
 
 Despite these limitations, the repository should serve as a comprehensive starting point for STI computation. Users can extend the code or incorporate their own data. For example, you could integrate this MATLAB code into a larger measurement framework, or adapt the signal generation for custom intelligibility tests. Always be mindful of the conditions (noise, non-linear processing, etc.) where each method is applicable [github.com](https://github.com/zawi01/stipa#:~:text=the%20direct%20STIPA%20method), and use the appropriate method accordingly (direct STIPA for quick on-site checks, full STI for detailed analysis when time permits, or IR method for theoretical studies and cases where an IR is known).
 
-#### References
+## References
 1. Záviška, P., Rajmic, P., Schimmel, J. _MATLAB Implementation of STIPA_. AES Europe Conference, 2024 – An open-source project implementing the STIPA method for speech intelligibility testing.
 2. **ČSN EN IEC 60268-16 ed. 3** – _Sound system equipment – Part 16: Objective rating of speech intelligibility by the STI_. International Electrotechnical Commission standard defining the STI calculation and qualification criteria.
 3. Cieslar, Šimon. _Computing Speech Transmission Index in Matlab_. Master’s Thesis, Brno University of Technology, 2025. (Detailing the development of this MATLAB implementation and measurement campaign.)
